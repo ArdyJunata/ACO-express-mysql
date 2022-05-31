@@ -72,11 +72,18 @@ exports.userDelete = async (req, res) => {
 
 exports.userUpdate = async (req, res) => {
     try {
-        const id = req.params.id
+        const id_petugas = req.params.id
         const body = req.body
+        const encrypted_password = await bcrypt.hash(body.password, 10)
+        const data = {
+            nama_petugas: body.nama_petugas,
+            username: body.username,
+            password: encrypted_password
+        }
 
-        await User.update(id, body)
+        await User.update(id_petugas, data)
         res.status(200).json({
+            user: data,
             message: 'update success'
         })
     } catch (err) {
@@ -88,23 +95,12 @@ exports.userUpdate = async (req, res) => {
 
 exports.userCreate = async (req, res) => {
     try {
-        const file = req.files.image
-        const filename = file.name
-        const nama = Math.random().toString() + filename
-        if (req.files) {
-            file.mv('C:/xampp/htdocs/karcisku/assets/img/user/' + nama)
-        }
         const body = req.body
-        const hash = await bcrypt.hash(body.password, 10)
+        const encrypted_password = await bcrypt.hash(body.password, 10)
         const data = {
-            name: body.name,
-            email: body.email,
-            password: hash,
-            address: body.address,
-            city: body.city,
-            province: body.province,
-            role_id: body.role_id,
-            image: nama
+            nama_petugas: body.nama_petugas,
+            username: body.username,
+            password: encrypted_password
         }
 
         await User.create(data)

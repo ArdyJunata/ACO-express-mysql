@@ -1,8 +1,6 @@
 const express = require('express'),
   bodyParser = require('body-parser'),
   user = require('./routes/userRoutes'),
-  product = require('./routes/productRoutes'),
-  order = require('./routes/orderRoutes'),
   cors = require('cors'),
   upload = require('express-fileupload');
 
@@ -24,8 +22,6 @@ const options = {
 app.use(cors(options))
 
 app.use('/user', user)
-app.use('/product', product)
-app.use('/order', order)
 
 app.listen(process.env.PORT || `3000`, () => {
 
