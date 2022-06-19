@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express'),
+verify = require('../controllers/authVerify');
 
 const {
     userFindAll,
@@ -6,24 +7,27 @@ const {
     userDelete,
     userUpdate,
     userCreate,
-    userCount,
-    userFindByRole
+    userLogin,
+    // userCount,
+    // userFindByRole
 } = require('../controllers/userController')
 
 const router = express.Router()
 
-router.get("/", userFindAll)
+router.get("/", verify, userFindAll)
 
-router.get("/:id", userFindById)
+router.get("/:id", verify, userFindById)
 
-router.get("/role/:id", userFindByRole)
+// router.get("/role/:id", userFindByRole)
 
-router.delete("/:id", userDelete)
+router.delete("/:id", verify, userDelete)
 
-router.post("/:id", userUpdate)
+router.put("/:id", verify, userUpdate)
 
 router.post("/", userCreate)
 
-router.get("/count/:id", userCount)
+// router.get("/count/:id", userCount)
+
+router.post("/login", userLogin)
 
 module.exports = router

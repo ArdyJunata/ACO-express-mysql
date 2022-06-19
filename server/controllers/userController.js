@@ -1,5 +1,27 @@
 const User = require('../models/userModel'),
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcryptjs'),
+    jwt = require('jsonwebtoken');
+
+
+exports.userLogin = async (req, res) => {
+    try {
+        const user = await User.username(req.body.username);
+        if(!user) return res.status(404).send("Incorrect username");
+
+        const validPassword = await bcrypt.compare(req.body.password, user[0].password);
+
+        if(!validPassword) return res.status(400).send("Incorrect password");
+
+        const token = jwt.sign({_id: user[0].id }, process.env.TOKEN_SECRET);
+
+        res.status(200).json({ 
+            'message': 'login success',
+            'token': token
+        })
+    } catch(err) {
+        res.status(500).json({ error: err })
+    }
+}
 
 exports.userFindAll = async (req, res) => {
     try {

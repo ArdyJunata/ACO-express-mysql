@@ -1,8 +1,12 @@
 const express = require('express'),
   bodyParser = require('body-parser'),
   user = require('./routes/userRoutes'),
+  sekolah = require('./routes/sekolahRoutes'),
+  bukti = require('./routes/buktiRoutes'),
   cors = require('cors'),
   upload = require('express-fileupload');
+
+  require('dotenv').config();
 
 const app = express()
 
@@ -22,6 +26,13 @@ const options = {
 app.use(cors(options))
 
 app.use('/user', user)
+app.use('/sekolah', sekolah)
+app.use('/bukti', bukti)
+
+app.use('/', (req,res) => {
+  res.send("its working !")
+})
+
 
 app.listen(process.env.PORT || `3000`, () => {
 

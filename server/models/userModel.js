@@ -5,7 +5,7 @@ let user = {}
 user.all = () => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM user`, (err, results) => {
+        pool.query(`SELECT * FROM petugas`, (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -17,7 +17,7 @@ user.all = () => {
 user.one = (id) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM user where id_petugas = ?`, [id], (err, results) => {
+        pool.query(`SELECT * FROM petugas where id_petugas = ?`, [id], (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -29,7 +29,20 @@ user.one = (id) => {
 user.email = (email, password) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM user where email = ? && password = ?`, [email, password], (err, results) => {
+        pool.query(`SELECT * FROM petugas where email = ? && password = ?`, [email, password], (err, results) => {
+            if (err) {
+                return reject(err)
+            }
+            return resolve(results)
+        })
+    })
+
+}
+
+user.username = (username) => {
+
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT * FROM petugas where username = ?`, [username], (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -42,7 +55,7 @@ user.email = (email, password) => {
 user.role = (id) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM user where role_id = ?`, [id], (err, results) => {
+        pool.query(`SELECT * FROM petugas where role_id = ?`, [id], (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -55,7 +68,7 @@ user.role = (id) => {
 user.delete = (id) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`DELETE FROM user WHERE id_petugas = ?`, [id], (err, results) => {
+        pool.query(`DELETE FROM petugas WHERE id_petugas = ?`, [id], (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -67,7 +80,7 @@ user.delete = (id) => {
 
 user.update = (id_petugas, user) => {
     return new Promise((resolve, reject) => {
-        pool.query(`UPDATE user set nama_petugas = ?, username = ?, password = ? WHERE id_petugas = 2`, [user.nama_petugas, user.username, user.password, id_petugas], (err, results) => {
+        pool.query(`UPDATE petugas set nama_petugas = ?, username = ?, password = ? WHERE id_petugas = ?`, [user.nama_petugas, user.username, user.password, id_petugas], (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -79,7 +92,7 @@ user.update = (id_petugas, user) => {
 user.create = (user) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`INSERT INTO user (nama_petugas, username, password) values (?, ?, ?)`, [user.nama_petugas, user.username, user.password], (err, results) => {
+        pool.query(`INSERT INTO petugas (nama_petugas, username, password) values (?, ?, ?)`, [user.nama_petugas, user.username, user.password], (err, results) => {
             if (err) {
                 return reject(err)
             }
@@ -92,7 +105,7 @@ user.create = (user) => {
 user.count = (id) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT COUNT(*) as count from user WHERE role_id = ? `, [id], (err, results) => {
+        pool.query(`SELECT COUNT(*) as count FROM petugas WHERE role_id = ? `, [id], (err, results) => {
             if (err) {
                 return reject(err);
             }
