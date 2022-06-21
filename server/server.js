@@ -1,6 +1,6 @@
 const express = require('express'),
   bodyParser = require('body-parser'),
-  user = require('./routes/userRoutes'),
+  petugas = require('./routes/petugasRoutes'),
   sekolah = require('./routes/sekolahRoutes'),
   bukti = require('./routes/buktiRoutes'),
   cors = require('cors'),
@@ -25,12 +25,12 @@ const options = {
 
 app.use(cors(options))
 
-app.use('/user', user)
+app.use('/petugas', petugas)
 app.use('/sekolah', sekolah)
 app.use('/bukti', bukti)
 
 app.use('/', (req,res) => {
-  res.send("its working !")
+  res.send("its working !"+ process.env.TOKEN_SECRET)
 })
 
 

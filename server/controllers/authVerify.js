@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
 
-        req.user = verified;
+        req.petugas = verified;
 
         next();
     } catch(err) { 
