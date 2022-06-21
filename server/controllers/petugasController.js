@@ -93,11 +93,11 @@ exports.petugasCreate = async (req, res) => {
         const encrypted_password = await bcrypt.hash(body.password, 10)
         const data = {
             nama_petugas: body.nama_petugas,
-            petugasname: body.petugasname,
+            username: body.username,
             password: encrypted_password
         }
 
-        await petugas.create(data)
+        await Petugas.create(data)
         res.status(200).json({
             message: 'addpetugas success'
         })

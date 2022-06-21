@@ -92,7 +92,7 @@ petugas.update = (id_petugas, petugas) => {
 petugas.create = (petugas) => {
 
     return new Promise((resolve, reject) => {
-        pool.query(`INSERT INTO petugas (nama_petugas, petugasname, password) values (?, ?, ?)`, [petugas.nama_petugas, petugas.petugasname, petugas.password], (err, results) => {
+        pool.query(`INSERT INTO petugas (nama_petugas, username, password) values (?, ?, ?)`, [petugas.nama_petugas, petugas.username, petugas.password], (err, results) => {
             if (err) {
                 return reject(err)
             }
