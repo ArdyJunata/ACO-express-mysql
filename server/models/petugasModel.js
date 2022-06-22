@@ -80,7 +80,7 @@ petugas.delete = (id) => {
 
 petugas.update = (id_petugas, petugas) => {
     return new Promise((resolve, reject) => {
-        pool.query(`UPDATE petugas set nama_petugas = ?, petugasname = ?, password = ? WHERE id_petugas = ?`, [petugas.nama_petugas, petugas.petugasname, petugas.password, id_petugas], (err, results) => {
+        pool.query(`UPDATE petugas set nama_petugas = ?, username = ?, password = ? WHERE id_petugas = ?`, [petugas.nama_petugas, petugas.username, petugas.password, id_petugas], (err, results) => {
             if (err) {
                 return reject(err)
             }
