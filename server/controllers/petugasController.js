@@ -5,8 +5,8 @@ const Petugas = require('../models/petugasModel'),
 
 exports.petugasLogin = async (req, res) => {
     try {
-        const petugas = await Petugas.petugasname(req.body.petugasname);
-        if(!petugas) return res.status(404).send("Incorrect petugasname");
+        const petugas = await Petugas.username(req.body.username);
+        if(!petugas[0]) return res.status(404).send("Incorrect username");
 
         const validPassword = await bcrypt.compare(req.body.password, petugas[0].password);
 

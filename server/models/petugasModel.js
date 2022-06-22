@@ -39,18 +39,18 @@ petugas.one = (id) => {
 
 // }
 
-// petugas.petugasname = (petugasname) => {
+petugas.username = (username) => {
 
-//     return new Promise((resolve, reject) => {
-//         pool.query(`SELECT * FROM petugas where petugasname = ?`, [petugasname], (err, results) => {
-//             if (err) {
-//                 return reject(err)
-//             }
-//             return resolve(results)
-//         })
-//     })
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT * FROM petugas where username = ?`, [username], (err, results) => {
+            if (err) {
+                return reject(err)
+            }
+            return resolve(results)
+        })
+    })
 
-// }
+}
 
 // petugas.role = (id) => {
 
