@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2022 at 08:20 PM
+-- Generation Time: Jun 22, 2022 at 10:03 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -51,7 +51,8 @@ INSERT INTO `bukti` (`id_bukti`, `nama_petugas`, `foto_sekolah`, `jam_sampai`, `
 (4, 'tyo', '', '', '', '', 'tyo', 'lancar', '0832423423', 'jaringan sulit\n', '', ''),
 (5, 'tyo', '', '', '', '', 'adi', 'lancar', '0832423423', 'jaringan sulit\n', '', ''),
 (6, 'tyo', '', '', '', '', 'adi', 'lancar', '0832423423', 'jaringan sulit\n', '', ''),
-(7, 'tyo 5', '', '', '', '', 'adi', 'lancar', '0832423423', 'jaringan sulit\n', '', '');
+(7, 'tyo 5', '', '', '', '', 'adi', 'lancar', '0832423423', 'jaringan sulit\n', '', ''),
+(8, 'tyo baru 5', '', '', '', '', 'adi baru', 'lancar', '0832423423', 'jaringan sulit', '', '');
 
 -- --------------------------------------------------------
 
@@ -71,9 +72,10 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`) VALUES
-(4, 'tyo', 'tyo', '$2a$10$/XzLlzG0lNUHNzwfNqDj3OquDtj3ttCPeyL2VDY3uwayu56vIC.oK'),
+(4, 'tyo new', '', '$2a$10$ihkyrxc5WSvwDQKPID8e3uDOmlhFDSiEm/YJ9HuuWRNRbVV7mnIGi'),
 (5, 'tyo', 'tyo', '$2a$10$cB5YfjcFP4Mu0IwqXUlObuTAouq/2lAGFsEtdSJeDBz6qMxjYzJyS'),
-(6, 'adi', 'adi', '$2a$10$UFn6hnPkdVqNt8VmE3Lleu8sieNvhdwr9nMNGs8Z32Td11fdst1yW');
+(6, 'adi', 'adi', '$2a$10$UFn6hnPkdVqNt8VmE3Lleu8sieNvhdwr9nMNGs8Z32Td11fdst1yW'),
+(7, 'tyo new', 'adi', '$2a$10$hqg3GRBG/6isvDS6Is.tFeq5DMCFGftBx/OJ6CH25cieSJi5M2zxq');
 
 -- --------------------------------------------------------
 
@@ -132,13 +134,13 @@ ALTER TABLE `sekolah`
 -- AUTO_INCREMENT for table `bukti`
 --
 ALTER TABLE `bukti`
-  MODIFY `id_bukti` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_bukti` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id_petugas` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_petugas` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sekolah`
