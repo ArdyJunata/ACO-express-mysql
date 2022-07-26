@@ -4,14 +4,15 @@ const express = require('express'),
   sekolah = require('./routes/sekolahRoutes'),
   bukti = require('./routes/buktiRoutes'),
   cors = require('cors'),
-  upload = require('express-fileupload');
+  morgan = require('morgan'),
+  multer = require('multer');
 
   require('dotenv').config();
 
 const app = express()
 
 app.use(express.json());
-app.use(upload());
+app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -28,6 +29,7 @@ app.use(cors(options))
 app.use('/petugas', petugas)
 app.use('/sekolah', sekolah)
 app.use('/bukti', bukti)
+
 
 app.use('/', (req,res) => {
   res.send("its working !"+ process.env.TOKEN_SECRET)

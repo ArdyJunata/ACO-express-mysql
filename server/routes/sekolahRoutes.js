@@ -1,5 +1,6 @@
 const express = require('express'),
-verify = require('../controllers/authVerify');
+verify = require('../controllers/authVerify'),
+multer = require('multer');
 const {
     sekolahFindAll,
     sekolahCreate,
@@ -10,7 +11,18 @@ const {
 
 const router = express.Router()
 
-router.post("/", verify, sekolahCreate)
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now().toString() + "-" + file.originalname)
+    }
+})
+
+const upload = multer({storage: storage})
+
+router.post("/", upload.single('foto_sekolah'), verify, sekolahCreate)
 router.get("/", verify, sekolahFindAll)
 router.post("/:id", verify, sekolahUpdate)
 router.delete("/:id", verify, sekolahDelete)

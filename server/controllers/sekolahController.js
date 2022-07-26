@@ -1,5 +1,6 @@
 const Sekolah = require('../models/sekolahModel'),
-    bcrypt = require('bcryptjs');
+    bcrypt = require('bcryptjs'),
+    util = require('util');
 
 exports.sekolahFindAll = async (req, res) => {
     try {
@@ -100,10 +101,11 @@ exports.sekolahUpdate = async (req, res) => {
 
 exports.sekolahCreate = async (req, res) => {
     try {
+        const filename = req.file.filename
         const body = req.body
         const data = {
             nama_sekolah: body.nama_sekolah,
-            foto_sekolah: "",            
+            foto_sekolah: filename,            
             latitude: body.latitude,
             longitude: body.longitude,
             kontak_sekolah: body.kontak_sekolah,
@@ -112,9 +114,10 @@ exports.sekolahCreate = async (req, res) => {
             id_petugas: body.id_petugas
         }
 
-        await Sekolah.create(data)
+        const sekolah = await Sekolah.create(data)
         res.status(200).json({
-            message: 'addsekolah success'
+            message: 'add sekolah success',
+            sekolah: data
         })
     } catch (err) {
         res.status(500).json({
