@@ -6,7 +6,8 @@ const {
     sekolahCreate,
     sekolahUpdate,
     sekolahDelete,
-    sekolahFindById
+    sekolahFindById,
+    acoSorting
 } = require('../controllers/sekolahController')
 
 const router = express.Router()
@@ -26,7 +27,8 @@ router.post("/", upload.single('foto_sekolah'), verify, sekolahCreate)
 router.get("/", verify, sekolahFindAll)
 router.post("/:id", verify, sekolahUpdate)
 router.delete("/:id", verify, sekolahDelete)
-router.get("/:id", verify, sekolahFindById)
+router.get("/:id", verify, sekolahFindById);
+router.post("/sorting/location", verify, acoSorting);
 
 // const {
 //     sekolahFindAll,

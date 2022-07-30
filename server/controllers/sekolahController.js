@@ -2,6 +2,10 @@ const Sekolah = require('../models/sekolahModel'),
     bcrypt = require('bcryptjs'),
     util = require('util');
 
+const {
+    haversine
+    } = require('../helper');
+
 exports.sekolahFindAll = async (req, res) => {
     try {
         const sekolah = await Sekolah.all()
@@ -78,7 +82,7 @@ exports.sekolahUpdate = async (req, res) => {
         const body = req.body
         const data = {
             nama_sekolah: body.nama_sekolah,
-            foto_sekolah: "",            
+            foto_sekolah: "",
             latitude: body.latitude,
             longitude: body.longitude,
             kontak_sekolah: body.kontak_sekolah,
@@ -105,7 +109,7 @@ exports.sekolahCreate = async (req, res) => {
         const body = req.body
         const data = {
             nama_sekolah: body.nama_sekolah,
-            foto_sekolah: filename,            
+            foto_sekolah: filename,
             latitude: body.latitude,
             longitude: body.longitude,
             kontak_sekolah: body.kontak_sekolah,
@@ -114,7 +118,7 @@ exports.sekolahCreate = async (req, res) => {
             id_petugas: body.id_petugas
         }
 
-        const sekolah = await Sekolah.create(data)
+        const sekolah = await Sekolah.create(data);
         res.status(200).json({
             message: 'add sekolah success',
             sekolah: data
@@ -122,6 +126,76 @@ exports.sekolahCreate = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             error: err
+        })
+    }
+}
+
+exports.acoSorting = async (req, res) => {
+    try {
+        // const jarak = haversine(0.4824689695779564, 101.4203418989024);
+        // console.log(jarak);
+        const body = req.body;
+        var unsortedLocation = body.locations;
+        var start = body.start_location;
+        var end = body.end_location;
+
+        unsortedLocation.unshift(start);
+
+        const sorted = [];
+        const pointed = [];
+
+        unsortedLocation.forEach((value, index) => {
+            const tempArray = unsortedLocation;
+            if (index == 0) {
+                sorted.push(value);
+                pointed.push(index);
+            } else {
+                let min = 0;
+                let nearest = null;
+                let indexNearest = 0;
+
+                tempArray.forEach((v, i) => {
+                    var done = 0;
+                    var index = 0;
+                    pointed.forEach(pointValue => {
+                        if (pointValue == i) {
+                            done = 1;
+                        }
+                    });
+
+                    if (done == 0) {
+                        if (index == 0) {
+                            nearest = v;
+                            // console.log(v);
+                            indexNearest = i;
+                            min = haversine(sorted[sorted.length - 1], v)
+                        } else {
+                            const jarak = haversine(nearest, v)
+
+                            if (jarak < min) {
+                                nearest = v;
+                                indexNearest = i;
+                                min = jarak;
+                            }
+                        }
+                    }
+                });
+                pointed.push(indexNearest);
+                sorted.push(nearest);
+
+            }
+        });
+
+        sorted.push(end);
+
+        res.status(200).json({
+            message: 'ACO Sorting',
+            sorted: sorted
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            eror: err
         })
     }
 }
